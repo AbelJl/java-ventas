@@ -46,7 +46,8 @@ IDVenta int primary key not null,
 IDCliente int not null,
 Fecha varchar(15) not null,
 Total decimal(8,2) not null,
-Estado bit not null
+Estado bit not null,
+IDUsuario int not null
 );
 
 create table DETALLE_VENTA(
@@ -72,7 +73,8 @@ IDProducto int not null,
 FechaVencimiento varchar(15),
 Cantidad int not null,
 Costo decimal(8,2),
-FechaEntrada varchar(15) not null
+FechaEntrada varchar(15) not null,
+IDUsuario int not null
 );
 
 alter table PRODUCTO add constraint categoria_producto foreign key (IDCategoria) references CATEGORIA (IDCATEGORIA);
@@ -80,5 +82,7 @@ alter table PRODUCTO add constraint unidad_producto foreign key (IDUnidad) refer
 alter table DETALLE_VENTA add constraint detalle_venta_producto foreign key (IDProducto) references PRODUCTO (IDProducto);
 alter table DETALLE_VENTA add constraint detalle_venta_venta foreign key (IDVenta) references VENTA (IDVenta);
 alter table VENTA add constraint venta_cliente foreign key (IDCliente) references CLIENTE (IDCliente);
+alter table VENTA add constraint venta_usuario foreign key (IDUsuario) references USUARIO (IDUsuario);
+alter table KARDEX add constraint kardex_usuario foreign key (IDUsuario) references USUARIO (IDUsuario);
 alter table KARDEX add constraint kardex_producto foreign key (IDProducto) references PRODUCTO (IDProducto);
 alter table KARDEX add constraint kardex_proveedor foreign key (IDProveedor) references PROVEEDOR (IDProveedor);
